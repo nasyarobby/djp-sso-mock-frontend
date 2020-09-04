@@ -1,15 +1,17 @@
 import Axios from "axios";
 import { useState } from "react";
-
+console.log(process.env.NODE_ENV);
 export function useApi(config) {
   const baseURL =
     (config && config.baseURL) ||
     (process.env.NODE_ENV === "development"
       ? `${process.env.REACT_APP_DEV_API_PROTOCOL}://${process.env.REACT_APP_DEV_API_HOST}`
-      : `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_HOST}`);
+      : `${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}`);
+
+  console.log(baseURL);
 
   return Axios.create({
-    _baseURL: baseURL,
+    baseURL: baseURL,
     timeout: 120000,
     headers: { "Content-Type": "application/json" },
   });
